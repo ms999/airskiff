@@ -1,0 +1,26 @@
+diff --git a/charts/tiller/values.yaml b/charts/tiller/values.yaml
+index dd76a85..dbd7bc7 100644
+--- a/charts/tiller/values.yaml
++++ b/charts/tiller/values.yaml
+@@ -24,7 +24,7 @@ dependencies:
+ 
+ images:
+   tags:
+-    tiller: gcr.io/kubernetes-helm/tiller:v2.16.1
++    tiller: quay.io/helmpack/tiller:v2.16.1
+   pull_policy: "IfNotPresent"
+   local_registry:
+     # NOTE(portdirect): this tiller chart does not support image pulling
+diff --git a/tools/helm_install.sh b/tools/helm_install.sh
+index ae77e88..e0d8e30 100755
+--- a/tools/helm_install.sh
++++ b/tools/helm_install.sh
+@@ -17,7 +17,7 @@
+ set -x
+ 
+ HELM=$1
+-HELM_ARTIFACT_URL=${HELM_ARTIFACT_URL:-"https://storage.googleapis.com/kubernetes-helm/helm-v2.16.1-linux-amd64.tar.gz"}
++HELM_ARTIFACT_URL=${HELM_ARTIFACT_URL:-"https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz"}
+ 
+ 
+ function install_helm_binary {

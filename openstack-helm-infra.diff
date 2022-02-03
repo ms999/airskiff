@@ -1,0 +1,45 @@
+diff --git a/tiller/values.yaml b/tiller/values.yaml
+index 3865f2a..f3ec778 100644
+--- a/tiller/values.yaml
++++ b/tiller/values.yaml
+@@ -26,7 +26,7 @@ release_group: null
+ 
+ images:
+   tags:
+-    tiller: gcr.io/kubernetes-helm/tiller:v2.14.1
++    tiller: quay.io/helmpack/tiller:v2.14.1
+     dep_check: quay.io/airshipit/kubernetes-entrypoint:v1.0.0
+     image_repo_sync: docker.io/docker:17.07.0
+   pull_policy: IfNotPresent
+diff --git a/tools/deployment/common/005-deploy-k8s.sh b/tools/deployment/common/005-deploy-k8s.sh
+index b4fe61b..1721fd4 100755
+--- a/tools/deployment/common/005-deploy-k8s.sh
++++ b/tools/deployment/common/005-deploy-k8s.sh
+@@ -103,7 +103,7 @@ sudo -E chmod +x /usr/local/bin/kubectl
+ # Install Helm
+ TMP_DIR=$(mktemp -d)
+ sudo -E bash -c \
+-  "curl -sSL ${URL}/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz | \
++  "curl -sSL https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz | \
+     tar -zxv --strip-components=1 -C ${TMP_DIR}"
+ 
+ sudo -E mv "${TMP_DIR}"/helm /usr/local/bin/helm
+@@ -179,6 +179,8 @@ EOF
+ # which has been removed in Kubernetes 1.16.0.
+ # See: https://github.com/helm/helm/issues/6374
+ helm init --service-account helm-tiller --output yaml \
++  --stable-repo-url=https://charts.helm.sh/stable \
++  --tiller-image=quay.io/helmpack/tiller:${HELM_VERSION} \
+   | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' \
+   | sed 's@  replicas: 1@  replicas: 1\n  selector: {"matchLabels": {"app": "helm", "name": "tiller"}}@' \
+   | kubectl apply -f -
+@@ -203,7 +205,8 @@ kubectl --namespace=kube-system wait \
+   pod -l app=helm,name=tiller
+ EOF
+ 
+-helm init --client-only
++helm init --client-only --stable-repo-url=https://charts.helm.sh/stable \
++  --tiller-image=quay.io/helmpack/tiller:${HELM_VERSION} 
+ 
+ # Set up local helm server
+ sudo -E tee /etc/systemd/system/helm-serve.service << EOF
