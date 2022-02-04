@@ -4,6 +4,7 @@
 
       
       mkdir -p /root/deploy && cd "$_"
+      ./cleanup.sh
       git config --global http.sslVerify false # Do NOT do this!
       apt update
       apt install git curl make -y
