@@ -55,12 +55,12 @@
       git checkout 1678cf635fe7ae7130c0dbef8dfb5494b8c69c16
       cp ../treasuremap.diff ./
       git apply treasuremap.diff
-      ./tools/deployment/airskiff/developer/030-armada-bootstrap.sh
+      sudo ./tools/deployment/airskiff/developer/030-armada-bootstrap.sh
       export OS_CLOUD=airship
       openstack endpoint list
       openstack service list
       cd ../shipyard
       git checkout 30f3a989c7
       cd ../treasuremap
-      # ./tools/deployment/airskiff/developer/100-deploy-osh.sh
+      # sudo ./tools/deployment/airskiff/developer/100-deploy-osh.sh
       #kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
