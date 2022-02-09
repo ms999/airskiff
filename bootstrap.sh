@@ -28,9 +28,7 @@
       cd ../treasuremap/
       ./tools/deployment/airskiff/developer/020-setup-client.sh
       ./tools/deployment/airskiff/developer/010-deploy-k8s.sh
-      sudo systemctl stop apparmor
-      sudo systemctl disable apparmor
-      sudo apt remove --assume-yes --purge apparmor      
+
       chmod 777 ~/.kube/config
 
       sudo cp /etc/resolv.conf /etc/resolv.conf.backup
