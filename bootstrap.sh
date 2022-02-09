@@ -26,8 +26,8 @@
       cp ../openstack-helm-infra.diff ./
       git apply openstack-helm-infra.diff
       cd ../treasuremap/
-      sudo ./tools/deployment/airskiff/developer/020-setup-client.sh
-      sudo ./tools/deployment/airskiff/developer/010-deploy-k8s.sh
+      ./tools/deployment/airskiff/developer/020-setup-client.sh
+      ./tools/deployment/airskiff/developer/010-deploy-k8s.sh
       sudo systemctl stop apparmor
       sudo systemctl disable apparmor
       sudo apt remove --assume-yes --purge apparmor      
