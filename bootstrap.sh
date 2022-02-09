@@ -59,3 +59,5 @@
       cd ../treasuremap
       ./tools/deployment/airskiff/developer/100-deploy-osh.sh
       #kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
+# 2022-02-09 20:46:02.688 1 INFO armada.handlers.chart_download [-] Cloning repo: https://opendev.org/openstack/openstack-helm-infra from branch: 03580ec90afa162c166661acf27f351b83565375
+# 2022-02-09 20:46:05.430 1 INFO armada.handlers.chart_download [-] Cloning repo: https://opendev.org/openstack/openstack-helm from branch: 52c132b9356695bf455ae25ec78cef9f532f9fe8
