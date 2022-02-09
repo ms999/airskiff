@@ -1,5 +1,5 @@
 diff --git a/tiller/values.yaml b/tiller/values.yaml
-index 3865f2a..f3ec778 100644
+index 3865f2ae..f3ec7785 100644
 --- a/tiller/values.yaml
 +++ b/tiller/values.yaml
 @@ -26,7 +26,7 @@ release_group: null
@@ -12,7 +12,7 @@ index 3865f2a..f3ec778 100644
      image_repo_sync: docker.io/docker:17.07.0
    pull_policy: IfNotPresent
 diff --git a/tools/deployment/common/005-deploy-k8s.sh b/tools/deployment/common/005-deploy-k8s.sh
-index b4fe61b..1721fd4 100755
+index b4fe61b9..72a43662 100755
 --- a/tools/deployment/common/005-deploy-k8s.sh
 +++ b/tools/deployment/common/005-deploy-k8s.sh
 @@ -103,7 +103,7 @@ sudo -E chmod +x /usr/local/bin/kubectl
@@ -24,7 +24,15 @@ index b4fe61b..1721fd4 100755
      tar -zxv --strip-components=1 -C ${TMP_DIR}"
  
  sudo -E mv "${TMP_DIR}"/helm /usr/local/bin/helm
-@@ -179,6 +179,8 @@ EOF
+@@ -121,6 +121,7 @@ sudo -E minikube start \
+   --docker-env HTTP_PROXY="${HTTP_PROXY}" \
+   --docker-env HTTPS_PROXY="${HTTPS_PROXY}" \
+   --docker-env NO_PROXY="${NO_PROXY},10.96.0.0/12" \
++  --extra-config=kubelet.max-pods=300 \
+   --network-plugin=cni \
+   --extra-config=controller-manager.allocate-node-cidrs=true \
+   --extra-config=controller-manager.cluster-cidr=192.168.0.0/16
+@@ -179,6 +180,8 @@ EOF
  # which has been removed in Kubernetes 1.16.0.
  # See: https://github.com/helm/helm/issues/6374
  helm init --service-account helm-tiller --output yaml \
@@ -33,7 +41,7 @@ index b4fe61b..1721fd4 100755
    | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' \
    | sed 's@  replicas: 1@  replicas: 1\n  selector: {"matchLabels": {"app": "helm", "name": "tiller"}}@' \
    | kubectl apply -f -
-@@ -203,7 +205,8 @@ kubectl --namespace=kube-system wait \
+@@ -203,7 +206,8 @@ kubectl --namespace=kube-system wait \
    pod -l app=helm,name=tiller
  EOF
  
