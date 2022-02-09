@@ -40,16 +40,17 @@
       sudo bash -c 'echo '\''search svc.cluster.local cluster.local'\'' >> /etc/resolv.conf'
       sudo bash -c 'echo '\''options ndots:5 timeout:1 attempts:1'\'' >> /etc/resolv.conf'
       sudo rm /etc/resolv.conf.backup
-      cd ../armada
-      git checkout a1b693b84d97f2cd0e0f9482d2f85a894c45c265
-      cp ../armada.diff ./
-      git apply armada.diff
-      make charts
-      pip install tox
-      tox -e genconfig
-      tox -e genpolicy
-      make images
-      sleep 5
+      # cd ../armada
+      # git checkout a1b693b84d97f2cd0e0f9482d2f85a894c45c265
+      # cp ../armada.diff ./
+      # git apply armada.diff
+      # make charts
+      # pip install tox
+      # sleep 5
+      # tox -e genconfig
+      # tox -e genpolicy
+      # sudo make images
+      # sleep 5
       cd ../treasuremap/
       git checkout 1678cf635fe7ae7130c0dbef8dfb5494b8c69c16
       cp ../treasuremap.diff ./
