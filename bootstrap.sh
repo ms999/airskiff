@@ -40,7 +40,7 @@
       cp ../armada.diff ./
       git apply armada.diff
       make charts
-      sudo apt install tox
+      sudo apt install tox -y
       sleep 5
       tox -e genconfig
       tox -e genpolicy
