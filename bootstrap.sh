@@ -5,9 +5,6 @@
       sudo systemctl daemon-reload
       sudo systemctl daemon-reexec
       sudo service systemd-logind restart
-      sudo systemctl stop apparmor
-      sudo systemctl disable apparmor
-      sudo apt remove --assume-yes --purge apparmor
       git config --global http.sslVerify false # Do NOT do this!
       sudo apt update
       sudo apt install git curl make -y
@@ -20,7 +17,7 @@
       cd ./treasuremap/
       git checkout v1.8-prime
       ./tools/deployment/airskiff/developer/000-clone-dependencies.sh
-      # ./tools/deployment/airskiff/developer/009-setup-apparmor.sh
+      ./tools/deployment/airskiff/developer/009-setup-apparmor.sh
       sleep 5
       cd ../openstack-helm-infra/
       cp ../openstack-helm-infra.diff ./
@@ -52,7 +49,7 @@
       cd ../treasuremap/
       git checkout 1678cf635fe7ae7130c0dbef8dfb5494b8c69c16
       cp ../treasuremap.diff ./
-      git apply treasuremap.diff
+      git apply treasuremap.diff    
       ./tools/deployment/airskiff/developer/030-armada-bootstrap.sh
       export OS_CLOUD=airship
       openstack endpoint list
