@@ -57,5 +57,5 @@
       cd ../shipyard
       git checkout 30f3a989c7
       cd ../treasuremap
-      # sudo ./tools/deployment/airskiff/developer/100-deploy-osh.sh
+      sudo ./tools/deployment/airskiff/developer/100-deploy-osh.sh
       #kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
