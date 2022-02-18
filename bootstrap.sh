@@ -1,6 +1,12 @@
 #!/bin/bash 
 
       set -ex
+      openssl x509 -enddate -noout -in /etc/ssl/certs/DST_Root_CA_X3.pem
+      sudo sed -i"" 's/mozilla\/DST_Root_CA_X3.crt/!mozilla\/DST_Root_CA_X3.crt/' /etc/ca-certificates.conf
+      sudo dpkg-reconfigure -fnoninteractive ca-certificates
+      sudo update-ca-certificates
+      openssl x509 -enddate -noout -in /etc/ssl/certs/ISRG_Root_X1.pem
+
       echo DefaultTasksMax=1000000 | sudo tee /etc/systemd/system.conf
       sudo systemctl daemon-reload
       sudo systemctl daemon-reexec
